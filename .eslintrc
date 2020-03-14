@@ -1,0 +1,25 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "project": "tsconfig.json"
+  },
+  "extends": [
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "prettier/react"
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "import/prefer-default-export": 0,
+    "no-console": 0,
+    "react/prop-types": 0,
+    "import/no-extraneous-dependencies": 0,
+    "global-require": 0,
+    "no-param-reassign": 0,
+    "react/no-unescaped-entities": 0,
+    "@typescript-eslint/no-use-before-define": 0
+  }
+}
