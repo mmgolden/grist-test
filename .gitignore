@@ -20,6 +20,7 @@ amplify/mock-data
 amplify/backend/amplify-meta.json
 amplify/backend/awscloudformation
 amplify/backend/backend-config.json
+amplify/backend/auth
 amplify/team-provider-info.json
 build/
 dist/
@@ -29,3 +30,4 @@ awsconfiguration.json
 amplifyconfiguration.json
 amplify-gradle-config.json
 amplifyxc.config
+.graphqlconfig.yml
