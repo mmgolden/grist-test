@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 import { Rehydrated } from 'aws-appsync-react';
 import * as Font from 'expo-font';
-import { StyleSheet, Text, View } from 'react-native';
+import { AppContainer } from './src/base/routes';
 import awsmobile from './src/aws-exports';
 
 Amplify.configure(awsmobile);
@@ -42,23 +42,12 @@ export default function App() {
     <ApolloProvider client={client}>
       <ApolloHooksProvider client={client}>
         <Rehydrated>
-          <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
-          </View>
+          <AppContainer />
         </Rehydrated>
       </ApolloHooksProvider>
     </ApolloProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 // Remove warnings in device simulator
 console.disableYellowBox = true;
