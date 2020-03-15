@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Amplify, { Auth } from 'aws-amplify';
 import AWSAppSyncClient from 'aws-appsync';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider, ApolloProviderProps } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 import { Rehydrated } from 'aws-appsync-react';
 import * as Font from 'expo-font';
@@ -39,8 +39,10 @@ export default function App() {
   if (!fontLoaded) return null;
 
   return (
-    <ApolloProvider client={client}>
-      <ApolloHooksProvider client={client}>
+    <ApolloProvider client={client as ApolloProviderProps<any>['client']}>
+      <ApolloHooksProvider
+        client={client as ApolloProviderProps<any>['client']}
+      >
         <Rehydrated>
           <AppContainer />
         </Rehydrated>
