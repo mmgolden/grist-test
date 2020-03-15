@@ -1,50 +1,27 @@
-import React from 'react';
-import { render, wait } from '@testing-library/react-native';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { AllMalts } from '../AllMalts';
-import { ApolloMockedProvider } from '../../__testUtils__/providers';
+import { fireEvent, waitForElement } from '@testing-library/react-native';
+import { renderWithNavigation } from '../../__testUtils__/renderWithNavigation';
 
-jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+const resolvers = {
+  Query: () => ({
+    listMalts: () => ({
+      items: [
+        {
+          id: '1',
+          name: 'Lager',
+          topRoller: null,
+          bottomRoller: null,
+        },
+      ],
+    }),
+  }),
+};
 
-function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
-  const AppNavigator = createStackNavigator(
-    {
-      AllMalts,
-      ...screens,
-    },
-    { initialRouteName: 'AllMalts', ...navigatorConfig }
-  );
+test('User can open grist test', async () => {
+  const { getByText } = renderWithNavigation({ resolvers });
 
-  const App = createAppContainer(AppNavigator);
+  const malt = await waitForElement(() => getByText('Lager'));
 
-  return {
-    ...render(
-      <ApolloMockedProvider
-        customResolvers={{
-          Query: () => ({
-            listMalts: () => ({
-              items: [
-                {
-                  id: '1',
-                  name: 'Lager',
-                  topRoller: null,
-                  bottomRoller: null,
-                },
-              ],
-            }),
-          }),
-        }}
-      >
-        <App />
-      </ApolloMockedProvider>
-    ),
-    navigationContainer: App,
-  };
-}
+  fireEvent.press(malt);
 
-test('Malts are rendered', async () => {
-  const { getByText } = renderWithNavigation();
-
-  await wait(() => getByText('Lager'));
+  expect(getByText('Beer')).toBeTruthy();
 });
